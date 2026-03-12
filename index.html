@@ -4,498 +4,486 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zahira Alhayat Donation System</title>
-
+    <link rel="icon" type="image/png" href="logo.png">
+    <title>Zahira Donation</title>
 
     <style>
-        /* --- 1. General Styles --- */
         body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: #f0f4f7;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             color: #333;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background: #ffffff;
+            min-height: 90vh;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
         }
 
         header {
             text-align: center;
-            background: #2c3e50;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 50px 20px;
         }
 
-        /* --- 2. Navigation & Buttons --- */
-        .filter-section {
-            text-align: center;
-            margin-bottom: 25px;
+        .main-logo {
+            width: 100px;
+            height: auto;
+            border-radius: 50%;
+            background: white;
+            padding: 5px;
         }
 
-        .btn-group {
+        .nav-menu {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 20px;
+            padding: 25px;
+            background: #fff;
+            border-bottom: 1px solid #eee;
             flex-wrap: wrap;
         }
 
-        .btn {
-            padding: 12px 22px;
-            border: 2px solid #3498db;
-            background: white;
-            color: #3498db;
+        .nav-item {
+            flex: 1;
+            min-width: 150px;
+            max-width: 200px;
+            padding: 20px;
+            border: none;
+            border-radius: 15px;
             cursor: pointer;
-            border-radius: 10px;
             font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .btn:hover {
-            background: #3498db;
             color: white;
+            font-size: 16px;
+            transition: 0.3s;
+            text-align: center;
         }
 
-        .all-btn {
-            border-color: #2c3e50;
-            color: #2c3e50;
+        .b-blood {
+            background: #ff4757;
         }
 
-        /* --- 3. Form Card --- */
-        .form-card {
-            max-width: 550px;
-            margin: 0 auto 30px;
-            background: white;
+        .b-money {
+            background: #2ed573;
+        }
+
+        .b-clothes {
+            background: #ffa502;
+        }
+
+        .b-items {
+            background: #70a1ff;
+        }
+
+        .b-db {
+            background: #2f3542;
+        }
+
+        .main-content {
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .money-stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            flex: 1;
+            background: #e8fcf1;
+            color: #27ae60;
             padding: 25px;
             border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 1px solid #c3e6cb;
+        }
+
+        .stat-card b {
+            font-size: 28px;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .form-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 15px;
         }
 
         input,
         select,
         textarea {
             width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-
-        .submit-btn {
-            width: 100%;
             padding: 15px;
-            background: #27ae60;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-sizing: border-box;
             font-size: 16px;
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 10px;
+            color: white;
             font-weight: bold;
-            transition: 0.3s;
+            cursor: pointer;
+            font-size: 18px;
         }
 
-        .hidden {
-            display: none;
-        }
-
-        .visible {
-            display: block;
-        }
-
-        /* --- 4. Table Design --- */
-        .table-card {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        .table-res {
             overflow-x: auto;
+            margin-top: 20px;
         }
 
-        .table-title {
-            text-align: center;
-            margin-bottom: 15px;
-            color: #2c3e50;
-        }
-
-        .data-table {
+        table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
         }
 
-        .data-table th {
-            background: #fdfdfd;
-            padding: 15px;
+        th,
+        td {
+            padding: 18px;
             text-align: left;
-            border-bottom: 2px solid #34495e;
-        }
-
-        .data-table td {
-            padding: 15px;
             border-bottom: 1px solid #eee;
-            font-size: 14px;
         }
 
-        .row-img {
+        th {
+            background: #f1f1f1;
+        }
+
+        .thumb-img {
             width: 60px;
             height: 60px;
-            border-radius: 8px;
             object-fit: cover;
+            border-radius: 8px;
             border: 1px solid #ddd;
         }
 
-        .id-badge {
-            color: #d35400;
-            font-weight: bold;
-            background: #fff5eb;
-            padding: 4px 8px;
-            border-radius: 5px;
-        }
-
-        /* --- 5. Professional Bilingual Chatbot --- */
-        #bot-toggle {
+        #bot-window {
             position: fixed;
-            bottom: 25px;
-            right: 25px;
-            padding: 15px 25px;
-            background: #3498db;
-            color: white;
-            border-radius: 50px;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-        }
-
-        #chat-window {
-            position: fixed;
-            bottom: 95px;
-            right: 25px;
-            width: 340px;
-            height: 480px;
+            bottom: 90px;
+            right: 20px;
+            width: 350px;
+            height: 450px;
             background: white;
             border-radius: 15px;
             display: none;
             flex-direction: column;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            border: 1px solid #ddd;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
             z-index: 1000;
+            border: 1px solid #ddd;
         }
 
-        .chat-header {
-            background: #3498db;
+        .bot-header {
+            background: #1e3c72;
             color: white;
             padding: 15px;
-            font-weight: bold;
+            border-radius: 15px 15px 0 0;
             text-align: center;
-            font-size: 16px;
+            font-weight: bold;
         }
 
-        #chat-messages {
+        #bot-messages {
             flex: 1;
             padding: 15px;
             overflow-y: auto;
-            background: #f9f9f9;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
+            background: #f9f9f9;
         }
 
         .msg {
-            max-width: 85%;
-            padding: 10px 14px;
-            border-radius: 15px;
+            padding: 10px;
+            border-radius: 10px;
             font-size: 14px;
+            max-width: 80%;
             line-height: 1.4;
-            word-wrap: break-word;
         }
 
-        /* تكييف اتجاه النص تلقائياً */
         .user-msg {
             align-self: flex-end;
-            background: #3498db;
+            background: #2a5298;
             color: white;
-            border-bottom-right-radius: 2px;
-            text-align: left;
         }
 
         .bot-msg {
             align-self: flex-start;
-            background: #ecf0f1;
-            color: #2c3e50;
-            border-bottom-left-radius: 2px;
-            text-align: left;
+            background: #eee;
+            color: #333;
         }
 
-        /* دعم العربي في الرسائل */
-        .rtl {
-            direction: rtl;
-            text-align: right;
-        }
-
-        .chat-footer {
+        .bot-input-area {
             display: flex;
             padding: 10px;
-            border-top: 1px solid #eee;
-            background: white;
             gap: 5px;
+            border-top: 1px solid #eee;
         }
 
-        .chat-footer input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: inherit;
-        }
-
-        .chat-footer button {
-            background: #3498db;
+        #bot-trigger {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #1e3c72;
             color: white;
+            border-radius: 50%;
             border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
             cursor: pointer;
-            font-weight: bold;
+            font-size: 24px;
+            z-index: 1001;
         }
 
-        .photo-label {
-            font-size: 12px;
-            color: #666;
-            margin-top: 5px;
-            display: block;
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+                margin: 0;
+                border-radius: 0;
+            }
+
+            .nav-menu {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                padding: 15px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <header>
-        <h1>Zahira Unity-care</h1>
-        <p>Donate everything what do you want if is clothes , money , items</p>
-    </header>
+    <div class="container">
+        <header>
+            <img src="./OIP (23).png" alt="">
+            <h1>Gaza Unity-care</h1>
+            <p>عطاؤك يصنع فرقاً | Your giving makes a difference</p>
+        </header>
 
-    <div class="filter-section">
-        <div class="btn-group">
-            <button class="btn" onclick="toggleView('Blood')">Blood | دم</button>
-            <button class="btn" onclick="toggleView('Money')">Money | مال</button>
-            <button class="btn" onclick="toggleView('Clothes')">Clothes | ملابس</button>
-            <button class="btn" onclick="toggleView('Items')">House Items | أغراض</button>
-            <button class="btn all-btn" onclick="toggleView('All')">Show All | الكل</button>
+        <nav class="nav-menu">
+            <button class="nav-item b-blood" onclick="showPage('blood')">Blood</button>
+            <button class="nav-item b-money" onclick="showPage('money')">Money</button>
+            <button class="nav-item b-clothes" onclick="showPage('clothes')">Clothes</button>
+            <button class="nav-item b-items" onclick="showPage('items')">Items</button>
+            <button class="nav-item b-db" onclick="showPage('all')">Database</button>
+        </nav>
+
+        <div class="main-content">
+            <div id="p-money" class="page">
+                <div class="money-stats">
+                    <div class="stat-card">Donors <b id="financial-count">0</b></div>
+                    <div class="stat-card">Total Amount <b id="total-amount">0 EGP</b></div>
+                </div>
+                <div class="form-box">
+                    <h2>Financial Donation</h2>
+                    <form onsubmit="handleSave(event, 'Money')">
+                        <input type="text" placeholder="Donor Name" required>
+                        <input type="tel" placeholder="Phone" required>
+                        <input type="number" placeholder="Amount (EGP)" required>
+                        <button type="submit" class="save-btn b-money">Donate Now</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="p-blood" class="page">
+                <div class="form-box">
+                    <h2>Blood Donation</h2>
+                    <form onsubmit="handleSave(event, 'Blood')">
+                        <input type="text" placeholder="Donor Name" required>
+                        <input type="tel" placeholder="Phone" required>
+                        <select required>
+                            <option value="">Blood Type</option>
+                            <option>A+</option>
+                            <option>O+</option>
+                            <option>B+</option>
+                            <option>AB+</option>
+                            <option>A-</option>
+                            <option>O-</option>
+                            <option>B-</option>
+                            <option>AB-</option>
+                        </select>
+                        <button type="submit" class="save-btn b-blood">Confirm</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="p-clothes" class="page">
+                <div class="form-box">
+                    <h2>Clothes Donation</h2>
+                    <form onsubmit="handleSave(event, 'Clothes')">
+                        <input type="text" placeholder="Name" required>
+                        <input type="tel" placeholder="Phone" required>
+                        <input type="file" accept="image/*" onchange="storeFile(event)">
+                        <button type="submit" class="save-btn b-clothes">Register Clothes</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="p-items" class="page">
+                <div class="form-box">
+                    <h2>House Items</h2>
+                    <form onsubmit="handleSave(event, 'Items')">
+                        <input type="text" placeholder="Name" required>
+                        <input type="text" placeholder="Item Detail" required>
+                        <input type="file" accept="image/*" onchange="storeFile(event)">
+                        <button type="submit" class="save-btn b-items">Register Item</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="p-all" class="page">
+                <h2>Master Database</h2>
+                <div class="table-res">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Type</th>
+                                <th>Donor</th>
+                                <th>Detail</th>
+                                <th>Image</th>
+                            </tr>
+                        </thead>
+                        <tbody id="master-list"></tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <section id="form-area" class="form-card hidden">
-        <h2 id="form-title">Registration | تسجيل</h2>
-        <form id="main-donation-form">
-            <input type="text" id="donor-name" placeholder="Name | الاسم">
-            <input type="tel" id="donor-phone" placeholder="Phone | الهاتف" required>
-
-            <div id="blood-group" class="hidden">
-                <select id="blood-type">
-                    <option value="">-- Choose Blood Type | فصيلة الدم --</option>
-                    <option>A+</option>
-                    <option>A-</option>
-                    <option>B+</option>
-                    <option>B-</option>
-                    <option>O+</option>
-                    <option>O-</option>
-                    <option>AB+</option>
-                    <option>AB-</option>
-                </select>
+        <button id="bot-trigger" onclick="toggleBot()">Help</button>
+        <div id="bot-window">
+            <div class="bot-header">Zahira Virtual Assistant</div>
+            <div id="bot-messages">
+                <div class="msg bot-msg">Welcome! I can answer your questions in Arabic or English.<br>مرحباً بك! يمكنني
+                    الإجابة على استفساراتك بالعربي أو الإنجليزي.</div>
             </div>
-
-            <div id="money-group" class="hidden">
-                <input type="number" id="money-amount" placeholder="Amount | المبلغ">
-                <select id="payment-choice">
-                    <option value="Visa">Credit Card | فيزا</option>
-                    <option value="Fawry">Fawry | فوري</option>
-                    <option value="Wallet">E-Wallet | محفظة</option>
-                </select>
+            <div class="bot-input-area">
+                <input type="text" id="bot-input" placeholder="Type your question...">
+                <button onclick="askBot()">Send</button>
             </div>
-
-            <div id="clothes-group" class="hidden">
-                <select id="clothes-category">
-                    <option value="">-- Category | الفئة --</option>
-                    <option>Men | رجالي</option>
-                    <option>Women | حريمي</option>
-                    <option>Kids | أطفال</option>
-                </select>
-                <select id="clothes-condition">
-                    <option>New | جديد</option>
-                    <option>Used | مستعمل</option>
-                </select>
-            </div>
-
-            <div id="items-group" class="hidden">
-                <select id="item-type">
-                    <option value="">-- Item Type | النوع --</option>
-                    <option>Furniture | أثاث</option>
-                    <option>Electronics | أجهزة</option>
-                </select>
-            </div>
-
-            <div id="photo-group" class="hidden">
-                <label class="photo-label">Evidence Photo | صورة المرفق:</label>
-                <input type="file" id="photo-upload" accept="image/*" onchange="handleImage(event)">
-            </div>
-
-            <textarea id="donor-notes" placeholder="Notes | ملاحظات..."></textarea>
-            <button type="submit" class="submit-btn">Save Record | حفظ السجل</button>
-        </form>
-    </section>
-
-    <div class="table-card">
-        <h2 id="table-status" class="table-title">Records | السجلات</h2>
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Category</th>
-                    <th>Donor</th>
-                    <th>Details</th>
-                    <th>Photo</th>
-                </tr>
-            </thead>
-            <tbody id="ledger-body"></tbody>
-        </table>
-    </div>
-
-    <button id="bot-toggle" onclick="toggleAssistant()">Help Center | المساعدة</button>
-
-    <div id="chat-window">
-        <div class="chat-header">Unity Support</div>
-        <div id="chat-messages">
-            <div class="msg bot-msg">Welcome! I can help you in Arabic or English.<br>مرحباً بك! يمكنني مساعدتك بالعربية
-                أو الإنجليزية.</div>
-        </div>
-        <div class="chat-footer">
-            <input type="text" id="chat-input" placeholder="Type here | اكتب هنا...">
-            <button onclick="sendToBot()">Send</button>
         </div>
     </div>
 
     <script>
-        let donationData = JSON.parse(localStorage.getItem('UnityCare_Permanent_DB')) || [];
-        let activeType = "All";
-        let globalImg = "";
-
-        renderTable("All");
-
-        function toggleView(cat) {
-            activeType = cat;
-            const formArea = document.getElementById('form-area');
-            document.getElementById('table-status').innerText = "Records: " + cat;
-
-            formArea.className = (cat === "All") ? "form-card hidden" : "form-card visible";
-
-            document.getElementById('blood-group').className = (cat === 'Blood') ? "visible" : "hidden";
-            document.getElementById('money-group').className = (cat === 'Money') ? "visible" : "hidden";
-            document.getElementById('clothes-group').className = (cat === 'Clothes') ? "visible" : "hidden";
-            document.getElementById('items-group').className = (cat === 'Items') ? "visible" : "hidden";
-            document.getElementById('photo-group').className = (cat === 'Clothes' || cat === 'Items') ? "visible" : "hidden";
-
-            renderTable(cat);
+        let db = JSON.parse(localStorage.getItem('Zahira_Master_DB')) || [];
+        let fileBuffer = "";
+        localStorage.clear();
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('p-' + id).classList.add('active');
+            if (id === 'all') render();
+            if (id === 'money') updateStats();
         }
 
-        function handleImage(e) {
-            const reader = new FileReader();
-            reader.onload = () => globalImg = reader.result;
-            if (e.target.files[0]) reader.readAsDataURL(e.target.files[0]);
+        function storeFile(e) {
+            let reader = new FileReader();
+            reader.onload = () => fileBuffer = reader.result;
+            reader.readAsDataURL(e.target.files[0]);
         }
 
-        document.getElementById('main-donation-form').onsubmit = function (event) {
-            event.preventDefault();
-            const id = "UC-" + Math.floor(Math.random() * 90000 + 10000);
-            let infoStr = "";
+        function handleSave(ev, cat) {
+            ev.preventDefault();
+            let fields = ev.target.querySelectorAll('input, select');
+            let amount = (cat === 'Money') ? parseFloat(fields[2].value) : 0;
+            let detail = (cat === 'Money') ? (amount + " EGP") : fields[2].value;
 
-            if (activeType === 'Blood') infoStr = "Group: " + document.getElementById('blood-type').value;
-            else if (activeType === 'Money') infoStr = "Amount: " + document.getElementById('money-amount').value + " EGP";
-            else if (activeType === 'Clothes') infoStr = document.getElementById('clothes-category').value;
-            else if (activeType === 'Items') infoStr = "Item: " + document.getElementById('item-type').value;
+            let record = {
+                id: db.length + 1,
+                cat: cat,
+                name: fields[0].value,
+                amount: amount,
+                detail: detail,
+                img: fileBuffer
+            };
 
-            const record = { id: id, cat: activeType, name: document.getElementById('donor-name').value || "Anonymous", details: infoStr, img: globalImg };
-            donationData.push(record);
-            localStorage.setItem('UnityCare_Permanent_DB', JSON.stringify(donationData));
+            db.push(record);
+            localStorage.setItem('Zahira_Master_DB', JSON.stringify(db));
+            alert("Operation Success!");
+            ev.target.reset();
+            fileBuffer = "";
+            showPage('all');
+        }
 
-            alert("Saved! Reference ID: " + id);
-            this.reset();
-            globalImg = "";
-            renderTable(activeType);
-        };
+        function updateStats() {
+            let fDonors = db.filter(x => x.cat === 'Money');
+            let total = fDonors.reduce((s, c) => s + c.amount, 0);
+            document.getElementById('financial-count').innerText = fDonors.length;
+            document.getElementById('total-amount').innerText = total.toLocaleString() + " EGP";
+        }
 
-        function renderTable(filter) {
-            const body = document.getElementById('ledger-body');
-            body.innerHTML = "";
-            const list = (filter === "All") ? donationData : donationData.filter(x => x.cat === filter);
-
-            list.forEach(item => {
-                const imageHtml = item.img ? `<img src="${item.img}" class="row-img">` : "None";
-                body.innerHTML += `<tr>
-                <td><span class="id-badge">${item.id}</span></td>
+        function render() {
+            let list = document.getElementById('master-list');
+            list.innerHTML = "";
+            db.forEach(item => {
+                let imgTd = item.img ? `<img src="${item.img}" class="thumb-img">` : "No Image";
+                list.innerHTML += `<tr>
+                <td>#${item.id}</td>
                 <td><b>${item.cat}</b></td>
                 <td>${item.name}</td>
-                <td>${item.details}</td>
-                <td>${imageHtml}</td>
+                <td>${item.detail}</td>
+                <td>${imgTd}</td>
             </tr>`;
             });
         }
 
-        /* --- Bilingual Bot Logic --- */
-        function toggleAssistant() {
-            const win = document.getElementById('chat-window');
-            win.style.display = (win.style.display === 'flex') ? 'none' : 'flex';
+        function toggleBot() {
+            let w = document.getElementById('bot-window');
+            w.style.display = (w.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        function isArabic(text) {
-            const pattern = /[\u0600-\u06FF]/;
-            return pattern.test(text);
+        function askBot() {
+            let input = document.getElementById('bot-input');
+            let box = document.getElementById('bot-messages');
+            let val = input.value.toLowerCase();
+            if (!val) return;
+            box.innerHTML += `<div class="msg user-msg">${input.value}</div>`;
+            let reply = "I can help with: Location, Blood, Money, Clothes, Items, Time. | يمكنني المساعدة في: الموقع، الدم، المال، الملابس، الأغراض، المواعيد.";
+            if (val.includes('location') || val.includes('مكان')) reply = "Cairo, 123 Solidarity St. | القاهرة، 123 شارع التضامن.";
+            else if (val.includes('blood') || val.includes('دم')) reply = "Urgent: O- and A+. | عاجل: O- و A+.";
+            else if (val.includes('money') || val.includes('مال')) reply = "Use the 'Money' tab. | استخدم تبويب المال.";
+            else if (val.includes('clothes') || val.includes('ملابس')) reply = "We accept clean clothes. | نقبل الملابس النظيفة.";
+            else if (val.includes('items') || val.includes('أجهزة')) reply = "We accept all house items. | نقبل جميع الأغراض المنزلية.";
+            else if (val.includes('time') || val.includes('وقت')) reply = "9 AM to 9 PM. | من 9 صباحاً لـ 9 مساءً.";
+            setTimeout(() => { box.innerHTML += `<div class="msg bot-msg">${reply}</div>`; box.scrollTop = box.scrollHeight; }, 300);
+            input.value = "";
         }
-
-        function sendToBot() {
-            const inp = document.getElementById('chat-input');
-            const msgs = document.getElementById('chat-messages');
-            const userText = inp.value.trim();
-            if (!userText) return;
-
-            // تحديد لغة المستخدم لتنسيق الفقاعة
-            const userRtl = isArabic(userText) ? "rtl" : "";
-            msgs.innerHTML += `<div class="msg user-msg ${userRtl}">${userText}</div>`;
-
-            const val = userText.toLowerCase();
-            inp.value = "";
-
-            let res = "I'm sorry, I don't understand. You can ask about locations, blood types, or money.<br>عذراً، لم أفهمك. يمكنك سؤالي عن الفروع، فصائل الدم، أو التبرع المالي.";
-
-            if (val.includes('hi') || val.includes('hello') || val.includes('أهلا') || val.includes('مرحبا')) {
-                res = "Hello! How can I help you today?<br>أهلاً بك! كيف يمكنني مساعدتك اليوم؟";
-            }
-            else if (val.includes('location') || val.includes('مكان') || val.includes('عنوان') || val.includes('address')) {
-                res = "We are located in Alexandria.<br> مقرنا في الإسكندرية.";
-            }
-            else if (val.includes('blood') || val.includes('دم') || val.includes('فصيلة')) {
-                res = "We urgently need O- and A+ blood types.<br>نحتاج حالياً فصائل الدم O- و A+ بشكل عاجل.";
-            }
-            else if (val.includes('money') || val.includes('فلوس') || val.includes('مال')) {
-                res = "We accept Visa, Fawry, and E-Wallets.<br>نقبل التبرعات عبر الفيزا، فوري، والمحافظ الإلكترونية.";
-            }
-            else if (val.includes('time') || val.includes('مواعيد') || val.includes('ساعة')) {
-                res = "We are open daily from 9 AM to 10 PM.<br>نحن متاحون يومياً من 9 صباحاً حتى 10 مساءً.";
-            }
-            else if (val.includes('clothes') || val.includes('ملابس') || val.includes('لبس')) {
-                res = "We accept clean clothes for all ages.<br>نقبل الملابس النظيفة لجميع الأعمار.";
-            }
-
-            setTimeout(() => {
-                const botRtl = isArabic(res) ? "rtl" : "";
-                msgs.innerHTML += `<div class="msg bot-msg ${botRtl}">${res}</div>`;
-                msgs.scrollTop = msgs.scrollHeight;
-            }, 500);
-        }
+        showPage('all');
     </script>
 </body>
 
