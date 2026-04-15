@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="./OIP (23).png">
-    <title>Zahira Donation</title>
+    <title>Gaza  Donation</title>
 
     <style>
         body {
@@ -155,6 +155,7 @@
             font-size: 18px;
         }
 
+         /* --- 4. Table Design --- */
         .table-res {
             overflow-x: auto;
             margin-top: 20px;
@@ -184,6 +185,9 @@
             border: 1px solid #ddd;
         }
 
+         /* --- end Table Design --- */
+
+         /* --- 5. Start bot desgin Design --- */
         #bot-window {
             position: fixed;
             bottom: 90px;
@@ -244,7 +248,12 @@
             gap: 5px;
             border-top: 1px solid #eee;
         }
-
+       
+        .bot-input-area img{
+            width: 30px;
+            padding: 10px;
+            border-radius: 50%;
+        }
         #bot-trigger {
             position: fixed;
             bottom: 20px;
@@ -252,14 +261,13 @@
             width: 60px;
             height: 60px;
             background: #1e3c72;
-            color: white;
             border-radius: 50%;
             border: none;
             cursor: pointer;
-            font-size: 24px;
             z-index: 1001;
         }
 
+         /* --- 5. End bot Design --- */
         @media (max-width: 768px) {
             .container {
                 width: 100%;
@@ -338,7 +346,7 @@
                             <option>B-</option>
                             <option>AB-</option>
                         </select>
-                        <button type="submit" class="save-btn b-blood">Confirm</button>
+                        <button type="submit" class="save-btn b-blood">Donate Now</button>
                     </form>
                 </div>
             </div>
@@ -350,7 +358,7 @@
                         <input type="text" placeholder="Name" required>
                         <input type="tel" placeholder="Phone" required>
                         <input type="file" accept="image/*" onchange="storeFile(event)">
-                        <button type="submit" class="save-btn b-clothes">Register Clothes</button>
+                        <button type="submit" class="save-btn b-clothes">Donate Clothes</button>
                     </form>
                 </div>
             </div>
@@ -362,13 +370,13 @@
                         <input type="text" placeholder="Name" required>
                         <input type="text" placeholder="Item Detail" required>
                         <input type="file" accept="image/*" onchange="storeFile(event)">
-                        <button type="submit" class="save-btn b-items">Register Item</button>
+                        <button type="submit" class="save-btn b-items">Donate Item</button>
                     </form>
                 </div>
             </div>
 
             <div id="p-all" class="page">
-                <h2>Master Database</h2>
+                <h2> Database</h2>
                 <div class="table-res">
                     <table>
                         <thead>
@@ -386,42 +394,42 @@
             </div>
         </div>
 
-        <button id="bot-trigger" onclick="toggleBot()">Help</button>
+        <button id="bot-trigger" onclick="toggleBot()"><img src="./robot.png" alt="bot icon" width="39"></button>
         <div id="bot-window">
-            <div class="bot-header">Zahira Virtual Assistant</div>
+            <div class="bot-header">Ask me  Assistant</div>
             <div id="bot-messages">
                 <div class="msg bot-msg">Welcome! I can answer your questions in Arabic or English.<br>مرحباً بك! يمكنني
                     الإجابة على استفساراتك بالعربي أو الإنجليزي.</div>
             </div>
             <div class="bot-input-area">
                 <input type="text" id="bot-input" placeholder="Type your question...">
-                <button onclick="askBot()">Send</button>
+                <button onclick="askBot()"><img src="./send.png" width="20"></button>
             </div>
         </div>
     </div>
 
     <script>
-        let db = JSON.parse(localStorage.getItem('Zahira_Master_DB')) || [];
-        let fileBuffer = "";
-        localStorage.clear();
-        function showPage(id) {
+        let db = JSON.parse(localStorage.getItem('Zahira_Master_DB')) || []; //يجلب البيانات المخزنة باسم Zahira_Master_DB من localStorage
+        let fileBuffer = ""; // اسم متغير يحتفظ ببيانات الصورة قبل حفظها
+        localStorage.clear(); //يمسح كل البيانات المخزنة في localStorage
+        function showPage(id) { //ينشئ دالة اسمها Show page تستقبل متغيرا اسمه id يحدد الصفحة التى سيتم عرضها 
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById('p-' + id).classList.add('active');
-            if (id === 'all') render();
-            if (id === 'money') updateStats();
+            if (id === 'all') render(); //يتاكد هل الصفحة المطلوبة اسمها all
+            if (id === 'money') updateStats(); //نفذ دالة updateStats لحساب وعرض الإحصائيات المالية
         }
 
-        function storeFile(e) {
+        function storeFile(e) { //ينشئ دالة اسمها storeFile تستقبل متغيرًا e وهو حدث اختيار الملف
             let reader = new FileReader();
             reader.onload = () => fileBuffer = reader.result;
-            reader.readAsDataURL(e.target.files[0]);
+            reader.readAsDataURL(e.target.files[0]); //قوم بقراءة الملف وتحويله إلى Data URL (Base64) يمكن استخدامه داخل HTML
         }
 
-        function handleSave(ev, cat) {
-            ev.preventDefault();
-            let fields = ev.target.querySelectorAll('input, select');
-            let amount = (cat === 'Money') ? parseFloat(fields[2].value) : 0;
-            let detail = (cat === 'Money') ? (amount + " EGP") : fields[2].value;
+        function handleSave(ev, cat) {  //يحفظ البيانات التى بداخلها المستخدم فى النموذج 
+            // ev.preventDefault(); 
+            let fields = ev.target.querySelectorAll('input, select'); //يحصل على جميع عناصر input و select داخل النموذج
+            let amount = (cat === 'Money') ? parseFloat(fields[2].value) : 0;  //ذا كانت الفئة Money يأخذ القيمة من الحقل الثالث ويحولها إلى رقم، وإلا تكون القيمة 0
+            let detail = (cat === 'Money') ? (amount + " EGP") : fields[2].value; //ذا كانت الفئة Money يضيف العملة EGP للمبلغ، وإلا يأخذ النص الموجود في الحقل
 
             let record = {
                 id: db.length + 1,
@@ -474,12 +482,12 @@
             if (!val) return;
             box.innerHTML += `<div class="msg user-msg">${input.value}</div>`;
             let reply = "I can help with: Location, Blood, Money, Clothes, Items, Time. | يمكنني المساعدة في: الموقع، الدم، المال، الملابس، الأغراض، المواعيد.";
-            if (val.includes('location') || val.includes('مكان')) reply = "Cairo, 123 Solidarity St. | القاهرة، 123 شارع التضامن.";
-            else if (val.includes('blood') || val.includes('دم')) reply = "Urgent: O- and A+. | عاجل: O- و A+.";
-            else if (val.includes('money') || val.includes('مال')) reply = "Use the 'Money' tab. | استخدم تبويب المال.";
-            else if (val.includes('clothes') || val.includes('ملابس')) reply = "We accept clean clothes. | نقبل الملابس النظيفة.";
+            if (val.includes('location') || val.includes('مكان')) reply = "Alexandria , Montazah  | . الاسكندرية ، منتزة";
+            else if (val.includes('blood') || val.includes('دم'))reply = "Urgent: O- and A+.\n first write your name \n secound Enter your number phone |  عاجل: O- و A+ \n اولا : ادخل اسمك  ،\n ثانيا : ادخل رقم الهاتف ";
+            else if (val.includes('money') || val.includes('مال')) reply = "Use the 'Money' tab. | استخدم قسم المال.";
+            else if (val.includes('clothes') || val.includes('ملابس')) reply = "We accept clean clothes  modern ,non used before. |   .نقبل الملابس النظيفة.و الجديدة لم تستعتمل مسبقا ";
             else if (val.includes('items') || val.includes('أجهزة')) reply = "We accept all house items. | نقبل جميع الأغراض المنزلية.";
-            else if (val.includes('time') || val.includes('وقت')) reply = "9 AM to 9 PM. | من 9 صباحاً لـ 9 مساءً.";
+            else if (val.includes('time') || val.includes('وقت') || val.includes('المواعيد')) reply = "9 AM to 9 PM. | من 9 صباحاً لـ 9 مساءً.";
             setTimeout(() => { box.innerHTML += `<div class="msg bot-msg">${reply}</div>`; box.scrollTop = box.scrollHeight; }, 300);
             input.value = "";
         }
