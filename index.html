@@ -324,6 +324,11 @@
                         <input type="text" placeholder="Donor Name" required>
                         <input type="tel" placeholder="Phone" required>
                         <input type="number" placeholder="Amount (EGP)" required>
+                        <select required>
+                            <option value="">Pay Type</option>
+                            <option>visa</option>
+                            <option>cash</option>                
+                        </select>
                         <button type="submit" class="save-btn b-money">Donate Now</button>
                     </form>
                 </div>
@@ -335,6 +340,12 @@
                     <form onsubmit="handleSave(event, 'Blood')">
                         <input type="text" placeholder="Donor Name" required>
                         <input type="tel" placeholder="Phone" required>
+                        <input type="text" placeholder="place" required>
+                            <select required>
+                            <option value="">place Type</option>
+                            <option>country </option>
+                            <option>city</option>
+                        </select>
                         <select required>
                             <option value="">Blood Type</option>
                             <option>A+</option>
@@ -357,6 +368,7 @@
                     <form onsubmit="handleSave(event, 'Clothes')">
                         <input type="text" placeholder="Name" required>
                         <input type="tel" placeholder="Phone" required>
+                        <input type="text" placeholder="address" required>
                         <input type="file" accept="image/*" onchange="storeFile(event)">
                         <button type="submit" class="save-btn b-clothes">Donate Clothes</button>
                     </form>
@@ -368,7 +380,9 @@
                     <h2>House Items</h2>
                     <form onsubmit="handleSave(event, 'Items')">
                         <input type="text" placeholder="Name" required>
+                        <input type="tel" placeholder="Phone number" required>
                         <input type="text" placeholder="Item Detail" required>
+                        <input type="text" placeholder="address" required>
                         <input type="file" accept="image/*" onchange="storeFile(event)">
                         <button type="submit" class="save-btn b-items">Donate Item</button>
                     </form>
